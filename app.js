@@ -25,6 +25,7 @@ var allowCrossDomain = function (req, res, next) {
     }
 };
 
+
 app.use(allowCrossDomain);
 app.get('/',(req,res)=>{
   res.send("NodeFaro v0.0.0")
