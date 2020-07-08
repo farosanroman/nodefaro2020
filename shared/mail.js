@@ -48,6 +48,44 @@ var url="https://geofaro.azurewebsites.net/api/SendGrid?code=e8AEs0bJiFz17aYkazs
         })
 
     },
+    mailverify: function (criteria, callback) {
+        console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
+        var verifier = require('email-verify');
+       
+        //criteria = 'ppppppazpurua@gmail.com'
+        var result = { cedula: criteria.cedula, mail: criteria.mail, success: false, mensaje: "Error desconocido" };
+        verifier.verify(criteria.mail, function (err, info) {
+            //if (err) {
+            //    console.log(err);
+            //    callback(null, err);
+            //}
+            //else
+            {
+                
+                if (info.success == true) {
+                    result.success = true;
+                    result.mensaje = "Correo existente";
+                    console.log(result)
+                    callback(null, result);
+                    return
+                }
+                if (info.success == false) {
+                    result.success = false;
+                    result.mensaje = info.info;
+                    if (info.code == 1) {
+                        result.mensaje = "Correo Inexistente";
+                    }
+                    if (info.code == 6) {
+                        result.mensaje = "Dominio Inexistente";
+                    }
+                    console.log(result)
+                    callback(null, result);
+                    return
+                }
+
+            }
+        });
+    },
     verify:function(mail,callback){
         var CloudmersiveValidateApiClient = require('cloudmersive-validate-api-client');
  
@@ -57,7 +95,7 @@ var url="https://geofaro.azurewebsites.net/api/SendGrid?code=e8AEs0bJiFz17aYkazs
         var Apikey = defaultClient.authentications['8af20ca2-3637-4466-8020-dec91d76eaf6'];
         //Apikey.apiKey = "8af20ca2-3637-4466-8020-dec91d76eaf6";
         callback(null, {flak:"ok"})
-    }
+    },
     
 }
 

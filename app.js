@@ -28,7 +28,7 @@ var allowCrossDomain = function (req, res, next) {
 
 app.use(allowCrossDomain);
 app.get('/',(req,res)=>{
-  res.send("NodeFaro v0.0.1")
+  res.send("NodeFaro v0.0.2")
   //var ppa=queries.f();
   //console.log(ppa)
   var defensores=[
@@ -41,15 +41,30 @@ app.get('/parroquias',(req,res)=>{
   geojson.getPARROQUIAS(criteria, function (err, results) {
     //res.end(results);     
     res.end(JSON.stringify(results));
-})
-
-  //var ppa=queries.f();
-  //console.log(ppa)
+    })
   
 });
-app.get('/verifyMAIL', function (request, response) {
-    var criteria = { "id": 123 }
-    var id = "45031619"
+app.get('/mailverify',(req,res)=>{
+  console.log("aaaaaaaa")
+  //var criteria = { "mail": request.query.mail, "cedula": request.query.cedula };
+  var criteria={ "mail": "ppazpurua@gmail.com", "cedula": "V33332" };
+  mail.mailverify(criteria, function (err, results) {
+      res.end(JSON.stringify(results));
+  })
+  
+});
+app.get('/mailverify2', function (request, response) {
+ // var criteria = { "mail": request.query.mail, "cedula": request.query.cedula };
+  var criteria=""
+  response.end(JSON.stringify({id:1}));
+  // mail.mailverify(criteria, function (err, results) {
+  //     response.end(JSON.stringify(results));
+  // })
+
+}),
+app.get('/verifyMAIL2', function (request, response) {
+    var criteria = { "id": "123@@asd" }
+    //var id = "45031619"
     //de pazpurua a poliflash
     //morocho64
     mail.verify(criteria, function (err, results) {
