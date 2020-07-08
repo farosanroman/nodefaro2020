@@ -60,6 +60,7 @@ var url="https://geofaro.azurewebsites.net/api/SendGrid?code=e8AEs0bJiFz17aYkazs
             //    callback(null, err);
             //}
             //else
+            
             {
                 
                 if (info.success == true) {
